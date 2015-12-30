@@ -1,5 +1,6 @@
 package com.example.snow.wellsaying;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -34,8 +35,11 @@ public class WellSayingActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //        .setAction("Action", null).show();
+                Intent intent = new Intent(WellSayingActivity.this,CommentsEditor.class);
+                intent.putExtra("content_id",1);
+                startActivity(intent);
             }
         });
 

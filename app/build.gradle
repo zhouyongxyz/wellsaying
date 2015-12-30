@@ -24,4 +24,11 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
+    compile 'jp.wasabeef:richeditor-android:1.0.0'
+    compile 'com.github.QuadFlask:colorpicker:0.0.9'
+}
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
 }

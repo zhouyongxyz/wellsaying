@@ -42,9 +42,9 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE comments (" +
                 "_id INTEGER PRIMARY KEY AUTOINCREMENT," +
                 "content_id TEXT," +
-                "comment" +
-                "author TEXT" +
-                "hits" +
+                "comment TEXT," +
+                "author TEXT," +
+                "hits INTEGER" +
                 ");");
     }
 

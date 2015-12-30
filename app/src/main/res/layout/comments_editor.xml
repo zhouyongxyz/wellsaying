@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        >
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageButton
+                android:id="@+id/action_undo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/undo"
+                />
+
+            <ImageButton
+                android:id="@+id/action_redo"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/redo"
+                />
+
+            <FrameLayout
+                android:layout_width="48dp"
+                android:layout_height="48dp">
+                <ImageButton
+                    android:id="@+id/action_txt_color"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/txt_color"
+                    />
+                <TextView
+                    android:id="@+id/index_color"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_gravity="bottom|right"
+                    android:layout_margin="5dp"
+                    android:background="@android:color/black" />
+            </FrameLayout>
+
+            <ImageButton
+                android:id="@+id/action_align_left"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/align_left"
+                />
+
+            <ImageButton
+                android:id="@+id/action_align_center"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/align_center"
+                />
+
+            <ImageButton
+                android:id="@+id/action_align_right"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/align_right"
+                />
+
+
+            <ImageButton
+                android:id="@+id/action_insert_image"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/insert_image"
+                />
+
+            <ImageButton
+                android:id="@+id/action_insert_link"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/insert_link"
+                />
+
+            <ImageButton
+                android:id="@+id/action_submit"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:contentDescription="@null"
+                android:src="@drawable/submit"
+                />
+
+        </LinearLayout>
+    </HorizontalScrollView>
+    <jp.wasabeef.richeditor.RichEditor
+        android:id="@+id/editor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="top|left" />
+
+</LinearLayout>
