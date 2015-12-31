@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -16,12 +18,20 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class WellSayingActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "WellSaying";
     private TextView wellSaying;
+    private ListView mListComments;
+    private SwipeRefreshLayout mRefreshLayout;
     private DBHelper dbHelper;
 
     @Override
@@ -37,8 +47,8 @@ public class WellSayingActivity extends AppCompatActivity
             public void onClick(View view) {
                 //Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 //        .setAction("Action", null).show();
-                Intent intent = new Intent(WellSayingActivity.this,CommentsEditor.class);
-                intent.putExtra("content_id",1);
+                Intent intent = new Intent(WellSayingActivity.this, CommentsEditor.class);
+                intent.putExtra("content_id", 1);
                 startActivity(intent);
             }
         });
@@ -52,8 +62,12 @@ public class WellSayingActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         wellSaying = (TextView)findViewById(R.id.wellsaying);
+        mRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.refreshlayout);
+        mListComments = (ListView)findViewById(R.id.list_comments);
         dbHelper = new DBHelper(this);
+        initFreshLayout();
         initWellSaying();
+        initCommentList();
     }
 
     @Override
@@ -120,5 +134,37 @@ public class WellSayingActivity extends AppCompatActivity
         if(cursor.moveToFirst()) {
             wellSaying.setText(cursor.getString(0));
         }
+    }
+
+    private void initFreshLayout() {
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                //mRefreshLayout.setRefreshing(true);
+                //do something to refresh ui
+                (new Handler()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        initCommentList();
+                        mRefreshLayout.setRefreshing(false);
+                    }
+                });
+            }
+        }
+        );
+    }
+    private void initCommentList() {
+        List<Map<String,Object>> list = new ArrayList<Map<String,Object>>();
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        Cursor cursor = db.query("comments", new String[]{"comment", "author"}, null, null, null, null, null);
+
+        while(cursor.moveToNext()) {
+            Map<String,Object> map = new HashMap<String, Object>();
+            Log.d(TAG,"content = "+cursor.getString(0));
+            map.put("title",cursor.getString(1));
+            map.put("content",cursor.getString(0));
+            list.add(map);
+        }
+        mListComments.setAdapter(new CommentsAdapter(this,list));
     }
 }
